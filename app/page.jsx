@@ -35,8 +35,8 @@ export default function Home() {
         animationType="pre-wedding"
         images={[
           { url: '/images/prewedding/prewedding1.jpg', name: 'Aashna & Amit' },
-          { url: '/images/prewedding/prewedding2.jpg', name: 'Priya & Rahul' },
-          { url: '/images/prewedding/prewedding3.jpg', name: 'Neha & Karan' },
+          { url: '/images/prewedding/prewedding2.JPG', name: 'Priya & Rahul' },
+          { url: '/images/prewedding/prewedding3.JPG', name: 'Neha & Karan' },
           { url: '/images/prewedding/prewedding4.jpg', name: 'Sanya & Rohan' },
           { url: '/images/prewedding/prewedding5.jpg', name: 'Diya & Arjun' },
           { url: '/images/prewedding/prewedding6.jpg', name: 'Riya & Vikram' },

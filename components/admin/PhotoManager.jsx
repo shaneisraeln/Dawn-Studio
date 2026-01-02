@@ -27,7 +27,7 @@ export default function PhotoManager() {
     const mockPhotos = {
       slideshow: [
         { id: 1, url: '/images/slideshow/slide1.jpg', name: 'Slide 1' },
-        { id: 2, url: '/images/slideshow/slide2.jpg', name: 'Slide 2' },
+        { id: 2, url: '/images/slideshow/slide2.JPG', name: 'Slide 2' },
         { id: 3, url: '/images/slideshow/slide3.jpg', name: 'Slide 3' },
       ],
       prewedding: Array.from({ length: 6 }, (_, i) => ({

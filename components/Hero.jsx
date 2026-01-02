@@ -20,7 +20,7 @@ export default function Hero() {
       objectPosition: 'center' // Default center positioning
     },
     {
-      url: '/images/slideshow/slide2.jpg', 
+      url: '/images/slideshow/slide2.JPG', 
       alt: 'Dawn HD Studio Photography 2',
       objectPosition: 'center middle' // Show bottom part of portrait image
     },

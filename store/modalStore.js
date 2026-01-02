@@ -10,4 +10,12 @@ export const useModalStore = create((set) => ({
     closeEnquiry: () => set({
         isEnquiryOpen: false
     }),
+
+    isReviewOpen: false,
+    openReview: () => set({
+        isReviewOpen: true
+    }),
+    closeReview: () => set({
+        isReviewOpen: false
+    }),
 }))

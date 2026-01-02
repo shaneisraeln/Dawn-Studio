@@ -22,27 +22,22 @@ export default function SchoolFunctionsSection() {
     {
       title: 'Annual Day',
       description: 'Capturing memorable performances and celebrations',
-      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&q=80'
+      image: '/images/school/annual-day.jpeg'
     },
     {
       title: 'Sports Day',
       description: 'Action-packed moments and victory celebrations',
-      image: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=1200&q=80'
+      image: '/images/school/sports-day.JPG'
     },
     {
       title: 'Graduation Ceremony',
       description: 'Milestone moments and proud achievements',
-      image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&q=80'
+      image: '/images/school/graduation.JPG'
     },
     {
       title: 'Cultural Events',
       description: 'Traditional performances and artistic expressions',
-      image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1200&q=80'
-    },
-    {
-      title: 'Science Fair',
-      description: 'Innovation and creativity on display',
-      image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80'
+      image: '/images/school/cultural-events.JPG'
     },
   ]
 
@@ -52,64 +47,98 @@ export default function SchoolFunctionsSection() {
     const section = sectionRef.current
     const scroll = scrollRef.current
 
-    // Small delay to ensure layout is ready
-    const timer = setTimeout(() => {
-      setIsReady(true)
-    }, 100)
-
-    const ctx = gsap.context(() => {
-      // Title animation
-      gsap.from(titleRef.current, {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 70%',
-          toggleActions: 'play none none reverse',
-        }
-      })
-
-      // Calculate scroll width
-      const getScrollWidth = () => scroll.scrollWidth - window.innerWidth
-
-      // Horizontal scroll animation
-      gsap.to(scroll, {
-        x: () => -getScrollWidth(),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: () => `+=${getScrollWidth()}`,
-          scrub: 0.3,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        }
-      })
-
-      // Animate cards
-      const cards = scroll.querySelectorAll('.function-card')
-      cards.forEach((card, i) => {
-        gsap.from(card, {
+    // Wait for layout to be fully ready
+    const initializeAnimations = () => {
+      // Refresh ScrollTrigger to ensure proper calculations
+      ScrollTrigger.refresh()
+      
+      const ctx = gsap.context(() => {
+        // Set initial state to prevent flash
+        gsap.set(scroll, { x: 0 })
+        gsap.set(titleRef.current, { opacity: 1, y: 0 })
+        
+        // Title animation
+        gsap.from(titleRef.current, {
           opacity: 0,
-          scale: 0.9,
-          duration: 0.8,
+          y: 50,
+          duration: 1,
+          ease: 'power2.out',
           scrollTrigger: {
-            trigger: card,
-            containerAnimation: gsap.to(scroll, { x: -getScrollWidth() }),
-            start: 'left 80%',
+            trigger: section,
+            start: 'top 70%',
             toggleActions: 'play none none reverse',
           }
         })
-      })
 
-    }, section)
+        // Calculate scroll width with proper timing
+        const getScrollWidth = () => {
+          const scrollWidth = scroll.scrollWidth
+          const windowWidth = window.innerWidth
+          return Math.max(0, scrollWidth - windowWidth)
+        }
+
+        // Horizontal scroll animation with better timing
+        const scrollTween = gsap.to(scroll, {
+          x: () => -getScrollWidth(),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: () => `+=${getScrollWidth()}`,
+            scrub: 0.5,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            onRefresh: () => {
+              // Ensure proper positioning on refresh
+              if (ScrollTrigger.isTouch) {
+                ScrollTrigger.refresh()
+              }
+            }
+          }
+        })
+
+        // Animate cards with container animation
+        const cards = scroll.querySelectorAll('.function-card')
+        cards.forEach((card, i) => {
+          gsap.from(card, {
+            opacity: 0,
+            scale: 0.9,
+            duration: 0.8,
+            scrollTrigger: {
+              trigger: card,
+              containerAnimation: scrollTween,
+              start: 'left 80%',
+              toggleActions: 'play none none reverse',
+            }
+          })
+        })
+
+      }, section)
+
+      setIsReady(true)
+      return ctx
+    }
+
+    // Use requestAnimationFrame to ensure DOM is ready
+    let animationFrame
+    const timer = setTimeout(() => {
+      animationFrame = requestAnimationFrame(() => {
+        const ctx = initializeAnimations()
+        
+        // Store context for cleanup
+        sectionRef.current._gsapContext = ctx
+      })
+    }, 150)
 
     return () => {
       clearTimeout(timer)
-      ctx.revert()
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame)
+      }
+      if (sectionRef.current?._gsapContext) {
+        sectionRef.current._gsapContext.revert()
+      }
     }
   }, [])
 
@@ -125,7 +154,11 @@ export default function SchoolFunctionsSection() {
       <section 
         ref={sectionRef}
         className="relative h-screen overflow-hidden bg-gradient-to-b from-dark via-dark-lighter to-dark"
-        style={{ willChange: isReady ? 'auto' : 'transform' }}
+        style={{ 
+          willChange: isReady ? 'auto' : 'transform',
+          opacity: isReady ? 1 : 0.99,
+          transition: 'opacity 0.1s ease-out'
+        }}
       >
         {/* Subtle background pattern */}
         <div className="absolute inset-0 opacity-5 pointer-events-none">
@@ -185,12 +218,9 @@ export default function SchoolFunctionsSection() {
                     <h3 className="font-montserrat text-3xl lg:text-4xl font-bold text-white mb-3 tracking-wide">
                       {func.title}
                     </h3>
-                    <p className="font-lato text-lg text-gray-300 mb-6">
+                    <p className="font-lato text-lg text-gray-300">
                       {func.description}
                     </p>
-                    <button className="bg-gold hover:bg-gold-dark text-white px-6 py-3 rounded font-semibold transition-all duration-300 hover:scale-105">
-                      View Gallery
-                    </button>
                   </div>
                 </div>
 

@@ -180,15 +180,6 @@ export default function WeddingSection({ images }) {
               
               {/* Elegant caption */}
               <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-16 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700">
-                <div className="max-w-4xl">
-                  <div className="w-12 h-px bg-gold mb-4" />
-                  <p className="font-montserrat text-2xl lg:text-4xl font-light tracking-wider text-white mb-2">
-                    {images[0].name}
-                  </p>
-                  <p className="font-lato text-sm text-gray-300 tracking-widest uppercase">
-                    Featured Wedding
-                  </p>
-                </div>
               </div>
 
               {/* Minimal border */}
@@ -218,26 +209,12 @@ export default function WeddingSection({ images }) {
                 
                 {/* Minimal caption */}
                 <div className="absolute inset-0 flex items-end p-4 lg:p-6 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <div className="w-full">
-                    <div className="w-8 h-px bg-gold mb-2" />
-                    <p className="font-montserrat text-xs lg:text-sm tracking-wider text-white uppercase">
-                      {image.name}
-                    </p>
-                  </div>
                 </div>
 
                 {/* Subtle border */}
                 <div className="absolute inset-0 border border-white/0 group-hover:border-white/20 transition-all duration-500" />
               </div>
             ))}
-          </div>
-
-          {/* Minimal footer text */}
-          <div className="text-center mt-20 lg:mt-32">
-            <div className="w-16 h-px bg-gold/50 mx-auto mb-6" />
-            <p className="font-lato text-sm text-gray-500 tracking-[0.3em] uppercase">
-              Scroll to explore more
-            </p>
           </div>
         </div>
       </section>

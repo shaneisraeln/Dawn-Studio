@@ -14,7 +14,7 @@ const lato = Lato({
 })
 
 export const metadata = {
-  title: 'Taj Studio - Luxury Wedding & Family Photography',
+  title: 'Dawn HD Studio - Luxury Wedding & Family Photography',
   description: 'Premier luxury photography and filmmaking studio specializing in weddings, pre-wedding shoots, and family portraits.',
 }
 

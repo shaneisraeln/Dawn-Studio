@@ -10,33 +10,10 @@ gsap.registerPlugin(ScrollTrigger)
 export default function IDCardsSection() {
   const sectionRef = useRef(null)
   const titleRef = useRef(null)
-  const contentRef = useRef(null)
-
-  const cardTypes = [
-    {
-      title: 'Student ID Cards',
-      description: 'Professional student identification cards with photo',
-      features: ['High-quality printing', 'Durable material', 'Custom design', 'Quick turnaround'],
-      icon: '🎓'
-    },
-    {
-      title: 'Staff ID Cards',
-      description: 'Professional staff identification with security features',
-      features: ['Security features', 'Professional design', 'Bulk orders', 'Fast delivery'],
-      icon: '👨‍🏫'
-    },
-    {
-      title: 'Visitor Passes',
-      description: 'Temporary visitor identification cards',
-      features: ['Customizable', 'Date-specific', 'Security compliant', 'Affordable'],
-      icon: '🎫'
-    }
-  ]
 
   const samples = [
-    'https://images.unsplash.com/photo-1633613286991-611fe299c4be?w=800&q=80',
-    'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80',
-    'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800&q=80',
+    '/images/idcards/idcards1.jpg',
+    '/images/idcards/idcards2.jpg',
   ]
 
   useEffect(() => {
@@ -56,21 +33,6 @@ export default function IDCardsSection() {
         }
       })
 
-      // Card type animations
-      const cards = contentRef.current.querySelectorAll('.id-card-type')
-      gsap.from(cards, {
-        opacity: 0,
-        y: 60,
-        stagger: 0.15,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: contentRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none reverse',
-        }
-      })
-
       // Sample images animation
       const samples = sectionRef.current.querySelectorAll('.sample-image')
       gsap.from(samples, {
@@ -84,18 +46,6 @@ export default function IDCardsSection() {
           start: 'top 80%',
           toggleActions: 'play none none reverse',
         }
-      })
-
-      // Floating animation for icons
-      const icons = contentRef.current.querySelectorAll('.card-icon')
-      icons.forEach((icon, i) => {
-        gsap.to(icon, {
-          y: -10,
-          duration: 2 + i * 0.3,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut'
-        })
       })
 
     }, sectionRef)
@@ -135,43 +85,14 @@ export default function IDCardsSection() {
           </p>
         </div>
 
-        {/* Card types grid */}
-        <div ref={contentRef} className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-          {cardTypes.map((card, index) => (
-            <div 
-              key={index}
-              className="id-card-type bg-dark-lighter border border-gold/20 rounded-xl p-8 hover:border-gold/60 transition-all duration-500 hover:transform hover:scale-105 group"
-            >
-              <div className="card-icon text-6xl mb-6">{card.icon}</div>
-              <h3 className="font-montserrat text-2xl font-semibold mb-3 tracking-wide">
-                {card.title}
-              </h3>
-              <p className="font-lato text-gray-400 mb-6 leading-relaxed">
-                {card.description}
-              </p>
-              <ul className="space-y-3">
-                {card.features.map((feature, i) => (
-                  <li key={i} className="flex items-center gap-3 text-sm text-gray-300">
-                    <div className="w-1.5 h-1.5 bg-gold rounded-full" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <button className="mt-8 w-full bg-gold/10 hover:bg-gold text-white py-3 rounded font-semibold transition-all duration-300 border border-gold/30 hover:border-gold">
-                Order Now
-              </button>
-            </div>
-          ))}
-        </div>
-
         {/* Sample images */}
-        <div className="text-center mb-12">
-          <h3 className="font-montserrat text-2xl font-semibold mb-8 tracking-wide">
+        <div className="text-center mb-6">
+          <h3 className="font-montserrat text-2xl font-semibold mb-4 tracking-wide">
             Sample Designs
           </h3>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {samples.map((sample, index) => (
             <div 
               key={index}
@@ -182,7 +103,7 @@ export default function IDCardsSection() {
                 alt={`ID Card Sample ${index + 1}`}
                 fill
                 className="object-cover transition-all duration-700 group-hover:scale-110"
-                sizes="(max-width: 768px) 100vw, 33vw"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500" />
               <div className="absolute inset-0 border-2 border-gold/0 group-hover:border-gold/60 transition-all duration-500 rounded-lg" />
@@ -195,16 +116,6 @@ export default function IDCardsSection() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* CTA */}
-        <div className="text-center mt-16">
-          <p className="font-lato text-gray-400 mb-6">
-            Need custom ID cards for your school?
-          </p>
-          <button className="bg-gold hover:bg-gold-dark text-white px-10 py-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gold/30">
-            Get a Quote
-          </button>
         </div>
       </div>
     </section>

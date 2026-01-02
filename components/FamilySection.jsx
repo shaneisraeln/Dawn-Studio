@@ -183,17 +183,7 @@ export default function FamilySection({ images }) {
             </p>
           </div>
 
-          {/* Category tabs */}
-          <div className="flex flex-wrap justify-center gap-4 mb-16">
-            {['Newborn', 'Toddler', 'Maternity', 'Family'].map((cat, i) => (
-              <div 
-                key={i}
-                className="category-tab px-6 py-3 bg-dark-lighter border-2 border-gold/30 rounded-full hover:bg-gold hover:border-gold transition-all duration-300 cursor-pointer"
-              >
-                <span className="font-montserrat text-sm tracking-wider uppercase">{cat}</span>
-              </div>
-            ))}
-          </div>
+         
 
           {/* Featured large image */}
           <div className="featured-image relative h-[60vh] rounded-2xl overflow-hidden mb-8 group cursor-pointer"
@@ -206,19 +196,15 @@ export default function FamilySection({ images }) {
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-12">
-              <div>
-                <p className="font-montserrat text-3xl font-bold text-gold mb-2">{images[0].name}</p>
-                <div className="w-32 h-1 bg-gold" />
-              </div>
             </div>
             <div className="absolute inset-0 border-4 border-gold/0 group-hover:border-gold/60 transition-all duration-500 rounded-2xl" />
           </div>
 
-          {/* Grid layout - asymmetric */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {/* Large item */}
+          {/* Grid layout - improved alignment */}
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {/* Large featured item - takes 2x2 space on larger screens */}
             <div 
-              className="grid-item col-span-2 row-span-2 relative aspect-square rounded-xl overflow-hidden group cursor-pointer"
+              className="grid-item md:col-span-2 md:row-span-2 relative aspect-square rounded-xl overflow-hidden group cursor-pointer"
               onClick={() => openLightbox(1)}
             >
               <Image
@@ -228,13 +214,10 @@ export default function FamilySection({ images }) {
                 className="object-cover transition-all duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500 flex items-center justify-center">
-                <p className="font-montserrat text-2xl text-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500 tracking-wider uppercase">
-                  {images[1].name}
-                </p>
               </div>
             </div>
 
-            {/* Small items */}
+            {/* Small items - fill remaining spaces */}
             {images.slice(2).map((image, index) => (
               <div 
                 key={index + 2}
@@ -248,9 +231,6 @@ export default function FamilySection({ images }) {
                   className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-75"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4">
-                  <p className="font-montserrat text-sm text-gold tracking-wider uppercase">
-                    {image.name}
-                  </p>
                 </div>
                 <div className="absolute inset-0 border-2 border-gold/0 group-hover:border-gold/80 transition-all duration-500 rounded-xl" />
               </div>

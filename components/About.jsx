@@ -145,7 +145,7 @@ export default function About() {
         <div ref={contentRef} className="space-y-6">
           <p className="font-lato text-lg lg:text-xl leading-relaxed text-gray-300 relative">
             <span className="absolute -left-4 top-0 text-6xl text-gold/30 font-serif">"</span>
-            Taj Studio is a premier luxury photography and filmmaking studio specializing in weddings, pre-wedding shoots, and family portraits. With years of experience and a passion for storytelling, we capture the essence of your most precious moments with elegance and artistry.
+            Dawn HD Studio is a premier luxury photography and filmmaking studio specializing in weddings, pre-wedding shoots, and family portraits. With years of experience and a passion for storytelling, we capture the essence of your most precious moments with elegance and artistry.
           </p>
           <p className="font-lato text-lg lg:text-xl leading-relaxed text-gray-300 relative">
             Our team of talented photographers and filmmakers work tirelessly to ensure every frame tells your unique story. From intimate family sessions to grand wedding celebrations, we bring creativity, professionalism, and heart to every project.
@@ -154,15 +154,14 @@ export default function About() {
         </div>
 
         {/* Animated stats */}
-        <div className="grid grid-cols-3 gap-8 mt-16">
+        <div className="flex justify-center gap-16 mt-16">
           {[
             { number: '500+', label: 'Happy Couples' },
-            { number: '10+', label: 'Years Experience' },
-            { number: '50+', label: 'Awards Won' }
+            { number: '25+', label: 'Years Experience' }
           ].map((stat, index) => (
             <div 
               key={index}
-              className="stat-item"
+              className="stat-item text-center"
             >
               <div className="text-4xl font-bold text-gold mb-2">{stat.number}</div>
               <div className="text-sm text-gray-400 uppercase tracking-wider">{stat.label}</div>

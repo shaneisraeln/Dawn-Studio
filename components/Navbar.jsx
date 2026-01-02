@@ -35,7 +35,7 @@ export default function Navbar() {
           onClick={() => scrollToSection('home')}
           className="font-montserrat text-xl lg:text-2xl font-bold tracking-[0.3em] hover:text-gold transition-smooth"
         >
-          TAJ STUDIO
+          DAWN HD STUDIO
         </button>
         
         <ul className="hidden md:flex items-center gap-10 font-lato">

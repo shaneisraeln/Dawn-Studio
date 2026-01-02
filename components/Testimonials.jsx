@@ -3,10 +3,12 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useModalStore } from '@/store/modalStore'
 
-const testimonials = [
+// Fallback testimonials in case API fails
+const fallbackTestimonials = [
   {
-    quote: "Taj Studio captured our wedding day perfectly. Every moment, every emotion - it was all beautifully preserved. We couldn't be happier with the results!",
+    quote: "Dawn HD Studio captured our wedding day perfectly. Every moment, every emotion - it was all beautifully preserved. We couldn't be happier with the results!",
     author: "PRANAV & MANSI",
     rating: 5
   },
@@ -16,7 +18,7 @@ const testimonials = [
     rating: 5
   },
   {
-    quote: "Professional, creative, and incredibly talented. Taj Studio exceeded all our expectations. Our wedding film is a masterpiece!",
+    quote: "Professional, creative, and incredibly talented. Dawn HD Studio exceeded all our expectations. Our wedding film is a masterpiece!",
     author: "RIYA & VIKRAM",
     rating: 5
   }
@@ -25,9 +27,40 @@ const testimonials = [
 export default function Testimonials() {
   const [current, setCurrent] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
+  const [testimonials, setTestimonials] = useState(fallbackTestimonials)
+  const [loading, setLoading] = useState(true)
+  const { openReview } = useModalStore()
   const sectionRef = useRef(null)
   const carouselRef = useRef(null)
   const navRef = useRef(null)
+
+  // Fetch approved reviews from API
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch('/api/reviews?status=approved')
+        if (response.ok) {
+          const data = await response.json()
+          if (data.success && data.reviews.length > 0) {
+            // Transform API reviews to testimonial format
+            const apiTestimonials = data.reviews.map(review => ({
+              quote: review.review,
+              author: review.name.toUpperCase(),
+              rating: review.rating
+            }))
+            setTestimonials(apiTestimonials)
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch reviews:', error)
+        // Keep fallback testimonials
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchReviews()
+  }, [])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -206,6 +239,16 @@ export default function Testimonials() {
             aria-label="Next testimonial"
           >
             <span className="transform group-hover:translate-x-1 transition-transform">›</span>
+          </button>
+        </div>
+
+        {/* Write Review Button */}
+        <div className="mt-8">
+          <button
+            onClick={openReview}
+            className="bg-transparent border-2 border-gold text-gold hover:bg-gold hover:text-dark px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gold/30"
+          >
+            Write a Review
           </button>
         </div>
       </div>

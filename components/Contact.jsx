@@ -3,96 +3,16 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useModalStore } from '@/store/modalStore'
 
 export default function Contact() {
   const sectionRef = useRef(null)
   const leftRef = useRef(null)
   const rightRef = useRef(null)
+  const { openReview } = useModalStore()
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Section background animation
-      gsap.from(sectionRef.current, {
-        backgroundColor: '#0a0a0a',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'top 20%',
-          scrub: 1,
-        }
-      })
-
-      // Enhanced left side animation
-      gsap.from(leftRef.current, {
-        opacity: 0,
-        x: -100,
-        y: 50,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none reverse'
-        }
-      })
-
-      // Enhanced contact items animation
-      const contactItems = leftRef.current.querySelectorAll('.contact-item')
-      gsap.from(contactItems, {
-        opacity: 0,
-        x: -30,
-        y: 20,
-        stagger: 0.1,
-        duration: 0.6,
-        ease: 'back.out(1.7)',
-        scrollTrigger: {
-          trigger: leftRef.current,
-          start: 'top 60%',
-          toggleActions: 'play none none reverse'
-        }
-      })
-
-      // Enhanced right side animation
-      gsap.from(rightRef.current, {
-        opacity: 0,
-        x: 100,
-        y: 50,
-        scale: 0.9,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none reverse'
-        }
-      })
-
-      // Floating animation for the entire section
-      gsap.to([leftRef.current, rightRef.current], {
-        y: -10,
-        duration: 2,
-        ease: 'sine.inOut',
-        repeat: -1,
-        yoyo: true,
-        stagger: 0.5
-      })
-
-      // Add glowing effect to contact items on scroll
-      contactItems.forEach((item) => {
-        gsap.to(item, {
-          boxShadow: '0 0 20px rgba(201, 169, 97, 0.3)',
-          duration: 0.5,
-          scrollTrigger: {
-            trigger: item,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          }
-        })
-      })
-
-    }, sectionRef)
-
-    return () => ctx.revert()
+    // Keep empty for static design
   }, [])
 
   return (
@@ -101,7 +21,7 @@ export default function Contact() {
       ref={sectionRef}
       className="py-20 lg:py-32 px-6 lg:px-12 bg-dark-lighter relative overflow-hidden"
     >
-      {/* Animated background pattern */}
+      {/* Static background pattern */}
       <div className="absolute inset-0 opacity-5">
         {[...Array(30)].map((_, i) => (
           <div
@@ -110,8 +30,6 @@ export default function Contact() {
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animation: `pulse ${2 + Math.random() * 3}s infinite`,
-              animationDelay: `${Math.random() * 2}s`
             }}
           />
         ))}
@@ -126,12 +44,8 @@ export default function Contact() {
           
           <div className="space-y-6">
             {[
-              { label: 'India', value: '+91 98765 43210', icon: '🇮🇳', href: 'tel:+919876543210' },
-              { label: 'Dubai', value: '+971 50 123 4567', icon: '🇦🇪', href: 'tel:+97150123456' },
-              { label: 'USA', value: '+1 (555) 123-4567', icon: '🇺🇸', href: 'tel:+15551234567' },
-              { label: 'Canada', value: '+1 (416) 555-0123', icon: '🇨🇦', href: 'tel:+14165550123' },
-              { label: 'Australia', value: '+61 2 1234 5678', icon: '🇦🇺', href: 'tel:+61212345678' },
-              { label: 'Email', value: 'info@taj.studio', icon: '✉️', href: 'mailto:info@taj.studio' },
+              { label: 'India', value: '+91 9344922000', icon: '🇮🇳', href: 'tel:+919344922000' },
+              { label: 'Email', value: 'dawnhdstudio@gmail.com', icon: '✉️', href: 'mailto:dawnhdstudio@gmail.com' },
             ].map((item, index) => (
               <a
                 key={index}
@@ -159,16 +73,25 @@ export default function Contact() {
             <p className="font-lato text-gray-300 mb-6 leading-relaxed">
               Ready to capture your special moments? Click the button below to send us an enquiry and let's create something beautiful together.
             </p>
-            <button 
-              onClick={() => {
-                const btn = document.querySelector('[data-enquiry-btn]')
-                if (btn) btn.click()
-              }}
-              className="group relative bg-gold hover:bg-gold-dark text-white px-8 py-4 rounded font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gold/30 overflow-hidden"
-            >
-              <span className="relative z-10">Send Enquiry</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-gold-dark to-gold transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-            </button>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button 
+                onClick={() => {
+                  const btn = document.querySelector('[data-enquiry-btn]')
+                  if (btn) btn.click()
+                }}
+                className="group relative bg-gold hover:bg-gold-dark text-white px-8 py-4 rounded font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gold/30 overflow-hidden"
+              >
+                <span className="relative z-10">Send Enquiry</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-gold-dark to-gold transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+              </button>
+              
+              <button 
+                onClick={openReview}
+                className="group relative bg-transparent border-2 border-gold text-gold hover:bg-gold hover:text-dark px-8 py-4 rounded font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gold/30"
+              >
+                Write a Review
+              </button>
+            </div>
 
             {/* Decorative corner elements */}
             <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-gold" />

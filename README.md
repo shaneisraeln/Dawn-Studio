@@ -1,4 +1,4 @@
-# Taj Studio - Luxury Photography Portfolio
+# Dawn-HD-Studio - Luxury Photography Portfolio
 
 A stunning, high-end photography portfolio website built with Next.js 14, featuring sophisticated animations, minimalist design, and a spotlight Wedding section.
 
